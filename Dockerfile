@@ -22,3 +22,8 @@ COPY app app/
 # Set display port and dbus env to avoid hanging
 ENV DISPLAY=:99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
+# Run tests and indicate success or failure
+RUN set -e; \
+    python -m unittest discover -s tests -v; \
+    echo "\n\n====================\nAll tests passed!\n====================\n"
