@@ -1,4 +1,4 @@
-# Selenium Scraper
+# Selenium Crawler
 
 A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome.
 Designed for quick, lightweight data extraction, especially in Dockerized environments.
