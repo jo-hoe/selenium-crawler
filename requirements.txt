@@ -1,0 +1,2 @@
+PySocks==1.7.1
+selenium==4.33.0
