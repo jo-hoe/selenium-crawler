@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.service import Service
 SHARED_MEM_PATH = "/dev/shm"
 
 
-def create_webdriver(headless: bool = True, load_images : bool = False) -> WebDriver:
+def create_webdriver(headless: bool = True, load_images: bool = False) -> WebDriver:
     """
     Creates an interoperable WebDriver. Method assumes 
     a Chrome installation existing on the system.
@@ -58,13 +58,34 @@ def create_webdriver(headless: bool = True, load_images : bool = False) -> WebDr
     options.add_argument('--remote-debugging-pipe')
     # Disable the gpu as it is most likely not running attached to the docker container
     options.add_argument("--disable-gpu")
+    # Add this line to help hide automation
+    options.add_argument('--disable-blink-features=AutomationControlled')
 
     driver = webdriver.Chrome(options=options, service=_create_service())
 
     _set_renderer(driver)
     _set_user_agent(driver)
+    _set_navigator_webdriver(driver)
 
     return driver
+
+
+def _set_navigator_webdriver(driver: WebDriver) -> None:
+    # Ensure 'webdriver' is present in navigator, always returns false, and is non-writable/non-configurable
+    script = """
+    try {
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => false,
+            set: () => {},
+            configurable: false,
+            enumerable: true
+        });
+    } catch (e) {}
+    """
+    driver.execute_cdp_cmd(
+        "Page.addScriptToEvaluateOnNewDocument",
+        {"source": script}
+    )
 
 
 def _set_renderer(driver: WebDriver) -> None:

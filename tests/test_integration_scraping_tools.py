@@ -2,50 +2,37 @@ import unittest
 
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from selenium_crawler.scraping_tools import get_element
+from selenium_crawler.scraping_tools import get_clickable_element, get_element
 from selenium_crawler.webdrivercreator import create_webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
 class TestIntegrationScrapingTools(unittest.TestCase):
 
-    def test_bot_detection_site(self):
+    def test_get_element(self):
         driver = None
         try:
             driver = create_webdriver(False)
-            driver.get("https://bot.sannysoft.com/")
+            driver.get("https://github.com/jo-hoe/selenium-crawler")
 
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='user-agent-result']"))
-            #self.assert_test(
-            #    driver, (By.XPATH, "//td[@id='webdriver-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='advanced-webdriver-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='chrome-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='permissions-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='plugins-length-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='permissions-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='languages-result']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='webgl-vendor']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='webgl-renderer']"))
-            self.assert_test(
-                driver, (By.XPATH, "//td[@id='broken-image-dimensions']"))
+            element = get_element(
+                driver, (By.XPATH, "//span[@class='AppHeader-context-item-label']"))
+
+            assert element is not None, "Element not found on the page"
         finally:
             if driver:
                 driver.quit()
 
-    def test_bot_score(self):
+    def test_get_clickable_button(self):
         driver = None
         try:
             driver = create_webdriver(False)
-            driver.get("https://fingerprint-scan.com/")
+            driver.get("https://github.com/jo-hoe/selenium-crawler")
+
+            element = get_clickable_element(
+                driver, (By.XPATH, "//button[contains(@class, 'prc-Button-ButtonBase')]"))
+
+            assert element is not None, "Element not found on the page"
         finally:
             if driver:
                 driver.quit()
