@@ -1,6 +1,7 @@
 # Selenium Scraper
 
-A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome. Designed for quick, lightweight data extraction, especially in Dockerized environments.
+A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome.
+Designed for quick, lightweight data extraction, especially in Dockerized environments.
 
 ## Features
 
@@ -8,35 +9,11 @@ A simple, opinionated Selenium WebDriver setup optimized for web scraping with C
 - Headless mode and image loading control
 - Optimizations for Docker, Windows, Linux, and MacOS
 - Utilities for element selection and waiting
-- Basic anti-bot detection tweaks
 
 ## Requirements
 
-- Python 3.8+
 - Google Chrome browser
 - ChromeDriver (compatible with your Chrome version)
-
-## Installation
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/jo-hoe/selenium-crawler.git
-   cd selenium-crawler
-   ```
-
-2. Create a virtual environment and install dependencies:
-
-   ```sh
-   make init
-   ```
-
-   Or manually:
-
-   ```sh
-   python -m venv .venv
-   .venv/Scripts/pip install -r requirements.txt
-   ```
 
 ## Usage
 
@@ -78,7 +55,3 @@ python -m unittest discover -s tests -v
 - This project is not intended to bypass all bot detection mechanisms.
 - Focuses on ease of use and quick setup for scraping tasks.
 - For advanced anti-bot evasion, consider additional tools or services.
-
-## License
-
-MIT License

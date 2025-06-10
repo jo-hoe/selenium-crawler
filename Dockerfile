@@ -15,9 +15,8 @@ COPY requirements.txt .
 RUN pip3 install  --upgrade pip \
     && pip3 install -r requirements.txt
 
-## For projects which are single scripts
-COPY main.py .
-COPY app app/
+## Copy resources
+COPY . .
 
 # Set display port and dbus env to avoid hanging
 ENV DISPLAY=:99

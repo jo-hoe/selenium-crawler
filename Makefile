@@ -27,6 +27,10 @@ save-dependencies: ## save current dependencies
 test: ## run all tests
 	${SCRIPT_DIR}python -m unittest discover -s $(ROOT_DIR)tests -v
 
+.PHONY: test-docker
+test-docker: ## run tests in docker
+	docker build -t python-test .
+	docker run --rm -v ${ROOT_DIR}:/app python-test
 
 .PHONY: build
 build: ## python build
