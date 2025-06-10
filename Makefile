@@ -25,7 +25,7 @@ save-dependencies: ## save current dependencies
 
 .PHONY: test
 test: ## run all tests
-	${SCRIPT_DIR}python -m unittest discover -s $(ROOT_DIR)test -v
+	${SCRIPT_DIR}python -m unittest discover -s $(ROOT_DIR)tests -v
 
 
 .PHONY: build

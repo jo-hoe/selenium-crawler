@@ -12,13 +12,15 @@ class TestIntegrationScrapingTools(unittest.TestCase):
     def test_get_element(self):
         driver = None
         try:
-            driver = create_webdriver(False)
+            driver = create_webdriver()
             driver.get("https://github.com/jo-hoe/selenium-crawler")
 
             element = get_element(
-                driver, (By.XPATH, "//span[@class='AppHeader-context-item-label']"))
+                driver, (By.XPATH, "//a[text()='selenium-crawler']"))
 
             assert element is not None, "Element not found on the page"
+        except TimeoutException:
+            assert False, "Element not found within the timeout period."
         finally:
             if driver:
                 driver.quit()
@@ -26,7 +28,7 @@ class TestIntegrationScrapingTools(unittest.TestCase):
     def test_get_clickable_button(self):
         driver = None
         try:
-            driver = create_webdriver(False)
+            driver = create_webdriver()
             driver.get("https://github.com/jo-hoe/selenium-crawler")
 
             element = get_clickable_element(
