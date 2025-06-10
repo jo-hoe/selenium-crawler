@@ -3,6 +3,8 @@
 A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome.
 Designed for quick, lightweight data extraction, especially in Dockerized environments.
 
+The project is not in any way affiliated with Selenium other than using it as a dependency.
+
 ## Features
 
 - Chrome WebDriver configuration for scraping
