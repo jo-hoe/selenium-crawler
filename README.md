@@ -40,9 +40,9 @@ finally:
 
 ## Docker
 
-To run successfully in Docker, use the following images and settings
+To run successfully in Docker, use the following images and settings.
 
-```
+```Dockerfile
 FROM python:3.13-alpine3.20
 
 ## Install system dependencies and update certificates
