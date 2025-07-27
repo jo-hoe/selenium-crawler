@@ -3,7 +3,7 @@
 A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome.
 Designed for quick, lightweight data extraction, especially in Dockerized environments.
 
-The project is not in any way affiliated with Selenium other than using it as a dependency.
+The project is not affiliated with Selenium in any way, except for using it as a dependency.
 
 ## Features
 
@@ -37,6 +37,28 @@ except TimeoutException:
 finally:
     driver.quit()
 ```
+
+## Docker
+
+To run successfully in Docker, use the following images and settings
+
+```
+FROM python:3.13-alpine3.20
+
+## Install system dependencies and update certificates
+RUN apk update && apk upgrade --no-cache && \
+    apk add --no-cache chromium-chromedriver ca-certificates && \
+    update-ca-certificates && \
+    rm -rf /var/cache/apk/*
+
+# Set display port and dbus env to avoid hanging
+ENV DISPLAY=:99
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
+...
+```
+
+Other images and settings may work, but have not been tested.
 
 ## Testing
 
