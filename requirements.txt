@@ -1,1 +1,1 @@
-selenium==4.45.0
+selenium==4.48.0
