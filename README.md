@@ -2,6 +2,7 @@
 
 [![Test](https://github.com/jo-hoe/selenium-crawler/actions/workflows/test.yml/badge.svg)](https://github.com/jo-hoe/selenium-crawler/actions/workflows/test.yml)
 [![Release](https://github.com/jo-hoe/selenium-crawler/actions/workflows/release.yml/badge.svg)](https://github.com/jo-hoe/selenium-crawler/actions/workflows/release.yml)
+[![PyPI version](https://badge.fury.io/py/selenium-crawler.svg)](https://badge.fury.io/py/selenium-crawler)
 
 A simple, opinionated Selenium WebDriver setup optimized for web scraping with Chrome.
 Designed for quick, lightweight data extraction, especially in Dockerized environments.
