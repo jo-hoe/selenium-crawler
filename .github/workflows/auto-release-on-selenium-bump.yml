@@ -1,0 +1,42 @@
+name: Auto-release on selenium bump
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, ':arrow_up: Bump selenium from')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump patch version in setup.py
+        id: version
+        run: |
+          OLD=$(python -c "import re; m=re.search(r'version=\"([^\"]+)\"', open('setup.py').read()); print(m.group(1))")
+          PARTS=(${OLD//./ })
+          NEW="${PARTS[0]}.${PARTS[1]}.$((${PARTS[2]}+1))"
+          sed -i "s/version=\"$OLD\"/version=\"$NEW\"/" setup.py
+          echo "new_version=$NEW" >> $GITHUB_OUTPUT
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add setup.py
+          git commit -m ":arrow_up: bump version to ${{ steps.version.outputs.new_version }}"
+          git push
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.version.outputs.new_version }}" \
+            --title "v${{ steps.version.outputs.new_version }}" \
+            --generate-notes
