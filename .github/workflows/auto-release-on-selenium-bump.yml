@@ -1,20 +1,26 @@
 name: Auto-release on selenium bump
 
 on:
-  push:
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
     branches:
       - main
 
 jobs:
   auto-release:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.head_commit.message, ':arrow_up: Bump selenium from')
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      startsWith(github.event.workflow_run.head_commit.message, ':arrow_up: Bump selenium from')
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
 
       - name: Bump patch version in setup.py
         id: version
